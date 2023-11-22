@@ -1,40 +1,48 @@
 <script setup>
-import { ElContainer, ElHeader, ElMain, ElAside, ElMenu, ElMenuItem, ElIcon } from 'element-plus'
+import { ElContainer, ElHeader, ElMain, ElMenu, ElMenuItem, ElIcon } from 'element-plus'
 import { Menu } from '@element-plus/icons-vue'
+import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
+const route = useRoute()
 
+const handleSelect = (key, keyPath) => {
+  console.log(key, keyPath)
+
+  console.log(route.path)
+
+  router.push({ path: key })
+}
 </script>
 
 <template>
   <main>
-
-    <div class="common-layout fullscreen" style="background-color: gray; margin-left: auto;">
-      <ElContainer>
-        <ElAside style="background-color: aquamarine;">
-          <ElMenu class="el-menu-vertical-demo">
-            <ElMenuItem index="1">
+    <div class="common-layout" style="background-color: gray; margin-left: auto">
+      <ElContainer style="position: fixed; top: 0; right: 0; left: 0">
+        <ElHeader>
+          <ElMenu
+            class="el-menu-demo full"
+            mode="horizontal"
+            :default-active="route.path"
+            @select="handleSelect"
+          >
+            <ElMenuItem index="/home">
               <ElIcon>
                 <Menu />
               </ElIcon>
-              <RouterLink to="/">首页</RouterLink>
+              <span>首页</span>
             </ElMenuItem>
-            <ElMenuItem>
-
-              <RouterLink to="/modify">编辑信息</RouterLink>
+            <ElMenuItem index="/modify">
+              <span>编辑信息</span>
             </ElMenuItem>
           </ElMenu>
-        </ElAside>
-        <ElContainer>
-          <ElHeader style="background-color: blueviolet;">
-            The Header
-          </ElHeader>
-          <ElMain style="background-color: darkgray;">
-            <RouterView></RouterView>
-          </ElMain>
-        </ElContainer>
+        </ElHeader>
+        <ElMain style="background-color: darkgray">
+          <RouterView></RouterView>
+        </ElMain>
       </ElContainer>
     </div>
-
   </main>
 </template>
 
@@ -66,11 +74,10 @@ header {
   }
 }
 
-.fullscreen {
-  position: absolute;
+.full {
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  bottom: 0;
 }
 </style>

@@ -8,12 +8,16 @@ import App from './App.vue'
 
 const routes = [
     {
-        path: '/',
+        path: '/home',
         component: () => import('./views/HomeView.vue')
     },
     {
         path: '/modify',
         component: () => import('./views/ModifyView.vue')
+    },
+    {
+        path: '/',
+        redirect: '/home'
     }
 ]
 
