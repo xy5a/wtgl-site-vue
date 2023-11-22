@@ -16,6 +16,10 @@ const routes = [
         component: () => import('./views/ModifyView.vue')
     },
     {
+        path: '/query',
+        component: () => import('./views/QueryView.vue')
+    },
+    {
         path: '/',
         redirect: '/home'
     }
