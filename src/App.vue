@@ -11,28 +11,18 @@ import {
 } from 'element-plus'
 import { Menu } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
+const getUserName = (id) => {
+  return 'user: ' + id
+}
+
 const route = useRoute()
 
-const userName = ref('user')
+const id = route.params.id
 
-const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath)
-
-  console.log(route.path)
-
-  if (keyPath[0] == 'users') {
-    ElNotification({
-      title: '诶, 还没写呢',
-      message: '是真的还没写呢',
-      type: 'info'
-    })
-  } else {
-    router.push({ path: key })
-  }
-}
+const userName = ref(getUserName(id))
+console.log(userName.value)
 </script>
 
 <template>
@@ -45,19 +35,19 @@ const handleSelect = (key, keyPath) => {
             style="flex: auto; left: 0; right: 0; position: fixed"
             mode="horizontal"
             :default-active="route.path"
-            @select="handleSelect"
+            :router="true"
           >
-            <ElMenuItem index="/home">
+            <ElMenuItem index="/home" route="/home">
               <ElIcon>
                 <Menu />
               </ElIcon>
               <span>首页</span>
             </ElMenuItem>
 
-            <ElMenuItem index="/modify">
+            <ElMenuItem index="/modify" route="/modify">
               <span>编辑信息</span>
             </ElMenuItem>
-            <ElMenuItem index="/query">
+            <ElMenuItem index="" route="/query">
               <span>查询信息</span>
             </ElMenuItem>
           </ElMenu>
@@ -76,7 +66,7 @@ const handleSelect = (key, keyPath) => {
             :ellipsis="false"
           >
             <ElSubMenu index="users" style="">
-              <template #title>{{ userName }}</template>
+              <template #title>{{ getUserName(route.params.id) }}</template>
               <ElMenuItem index="/users/logout">退出登陆</ElMenuItem>
             </ElSubMenu>
           </ElMenu>
