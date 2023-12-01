@@ -71,7 +71,7 @@ console.log(userName.value)
             </ElSubMenu>
           </ElMenu>
         </ElHeader>
-        <ElMain style="background-color: darkgray">
+        <ElMain style="background-color: lightblue">
           <!--路由的内容-->
           <RouterView></RouterView>
         </ElMain>
