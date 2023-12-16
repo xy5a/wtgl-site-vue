@@ -59,10 +59,12 @@ let data = [
     </ElTable>
   </div>
 </template>
+
 <style scoped>
 .table-container {
   max-width: 800px;
   margin: auto;
+  opacity: 0.88; /* 设置透明度*/
 }
 
 .custom-table {
@@ -95,5 +97,4 @@ let data = [
 .el-button {
   margin-right: 10px;
 }
-
 </style>
