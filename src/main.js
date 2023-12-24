@@ -2,6 +2,7 @@ import './assets/main.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { VueCookies } from 'vue-cookies'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/',
         redirect: '/home'
+    },
+    {
+        path: '/register',
+        component: () => import('./views/RegisterView.vue')
     }
 ]
 
@@ -39,6 +44,8 @@ const router = createRouter({
 const app = createApp(App)
 
 app.use(ElementPlus)
+
+app.use(VueCookies)
 
 app.use(router)
 
