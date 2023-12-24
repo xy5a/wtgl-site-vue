@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 style="text-align: center; margin-bottom: 20px;">登录</h2>
+    <h2 style="text-align: center; margin-bottom: 20px">登录</h2>
     <ElForm :model="form" label-width="20%" class="form-container">
       <ElFormItem class="form-item" label="用户名">
         <ElInput v-model="form.userName" />
@@ -10,26 +10,54 @@
       </ElFormItem>
       <ElFormItem class="center-button">
         <ElButton type="primary" @click="onSubmit">提交</ElButton>
+        <ElButton
+          type="primary"
+          @click="
+            () => {
+              router.push('/register')
+            }
+          "
+          >注册</ElButton
+        >
       </ElFormItem>
     </ElForm>
   </div>
 </template>
 
 <script setup>
-import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
+import { ElButton, ElForm, ElFormItem, ElInput, ElMessageBox } from 'element-plus'
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+import { baseUrl } from '../components/common'
 
 const router = useRouter()
+
+const encrypter = (s) => s
 
 const form = reactive({
   userName: '',
   password: ''
 })
 
-const onSubmit = () => {
+const onSubmit = async () => {
   console.log(form)
-  router.push(`/home`)
+
+  let result = await axios.post(baseUrl + 'api/login', {
+    username: form.userName,
+    password: encrypter(form.password)
+  })
+
+  if (result.status === 200) {
+    router.push(`/home`)
+  } else {
+    ElMessageBox({
+      title: '用户名或密码错误',
+      message: result.data.message,
+      type: 'error'
+    })
+    form.password = ''
+  }
 }
 </script>
 
@@ -62,10 +90,10 @@ const onSubmit = () => {
 
 .center-button {
   text-align: center;
-  width: 100%; 
+  width: 100%;
 }
 
 .form-container {
-  width: 100%; 
+  width: 100%;
 }
 </style>

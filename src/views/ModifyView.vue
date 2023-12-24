@@ -68,8 +68,8 @@ const formRule = reactive({
 })
 
 const onSubmit = async () => {
-  if (!formRef) return
-  await formRef.validate((valid, fields) => {
+  if (!formRef.value) return
+  await formRef.value.validate((valid, fields) => {
     if (valid) {
       console.log('submit!', form)
     } else {
