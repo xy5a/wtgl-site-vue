@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import { validateLogin } from '../components/interface'
+import { validateLogin } from '../components/common'
 
 validateLogin()
 </script>

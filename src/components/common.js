@@ -1,19 +1,10 @@
-import axios from "axios";
+function validateLogin() {
+    return true
+}
 
 const baseUrl = "/"
 
-async function validateLogin() {
-
-    let res =  await axios.post(baseUrl + "login/validate" )
-    
-    return res.data.data.isLogin;
-}
-
-
-
-
-
-export  {
+export{
     validateLogin,
-    baseUrl 
+    baseUrl
 }
